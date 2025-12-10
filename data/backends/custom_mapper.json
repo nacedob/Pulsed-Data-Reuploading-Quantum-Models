@@ -1,0 +1,11 @@
+{
+  "low_noise": {
+    "depolarizing_1q": 0.001
+  },
+  "middle_noise": {
+    "depolarizing_1q": 0.01
+  },
+  "high_noise": {
+    "depolarizing_1q": 0.1
+  }
+}
