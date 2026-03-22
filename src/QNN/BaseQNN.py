@@ -112,8 +112,7 @@ class BaseQNN(ABC):
         if simulated_device.lower() not in ['brisbane', 'kyiv', 'marrakesh', 'custom']:
             raise ValueError("The simulated device must be 'custom', 'brisbane', 'kyiv', or 'marrakesh'")
         self.simulated_device = simulated_device.lower()
-        self.duration_1q_gate, self.duration_2q_gate = self._define_gate_durations(duration_1q_pulse,
-                                                                                   duration_2q_pulse)
+        self.duration_1q_gate, self.duration_2q_gate = duration_1q_pulse, duration_2q_pulse
         if self.noise:
             self.noise_parameters = noise_parameters or {}
             self.noise_sources = (noise_sources if noise_sources not in [None, 'all']
@@ -799,13 +798,6 @@ class BaseQNN(ABC):
         """
         pass
 
-    @abstractmethod
-    def _define_gate_durations(self, duration_pulse_1q: float, duration_pulse_2q: float) -> int:
-        """
-        Defines the duration of the 1q and 2q operations, which is used to calculate the total time of the circuit to
-        apply the phase and amplitude damping channels.
-        """
-        pass
 
     def _clip_params(self, params: Sequence) -> Sequence:
         """

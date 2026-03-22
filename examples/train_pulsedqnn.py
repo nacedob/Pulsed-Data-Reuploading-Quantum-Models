@@ -12,6 +12,7 @@ from typing import Tuple
 
 
 filterwarnings("ignore", category=RuntimeWarning)
+filterwarnings("ignore", category=FutureWarning)
 
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -22,7 +23,7 @@ seed = 42
 n_qubits = 1
 n_layers = 4
 # Pulse parameters
-pulse_shape = 'constant'
+pulse_shape = 'gaussian'
 duration_1q_pulse = 10
 duration_2q_pulse = 100
 # Train parameters
@@ -52,7 +53,8 @@ def get_qnn() -> PulsedQNN:
 # ---------------------------------------------------------------------------------------------------------------------
 # 2. Load dataset
 # It is important to know that jax module is used for optimization, so datasets can must be converted to jax.numpy
-# arrays. Regular np arrays can be used if the constructor is used with interface = 'numpy', but it is not recommended
+# arrays. Regular np arrays can be used if the constructor is used with interface = 'numpy' in the GateQNN, but 
+# currently it is not supported for the PulsedQNN.
 # ---------------------------------------------------------------------------------------------------------------------
 
 
@@ -60,7 +62,6 @@ def make_classification_dataset_jax(
     n_features: int,
     n_train: int,
     n_test: int,
-    random_state: int,
 ) -> Tuple[jnp.ndarray, jnp.ndarray, jnp.ndarray, jnp.ndarray]:
 
     n_total = n_train + n_test
@@ -71,7 +72,7 @@ def make_classification_dataset_jax(
         n_informative=n_features,
         n_redundant=0,
         n_classes=2,
-        random_state=random_state,
+        random_state=seed,
     )
 
     # Convert to jax.numpy
@@ -118,10 +119,9 @@ def main():
     qnn = get_qnn()
     # 2. Load dataset
     X_train, y_train, X_test, y_test = make_classification_dataset_jax(
-        n_features=3,
+        n_features=2,
         n_train=100,
         n_test=50,
-        random_state=seed
     )
     # 3. Train the QNN
     print('Training the QNN...')

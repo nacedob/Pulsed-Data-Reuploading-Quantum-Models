@@ -205,6 +205,3 @@ class GateQNN(BaseQNN):
         qml.MultiRZ(theta=-pi / 2, wires=wires[::-1])
         qml.Hadamard(wires=wires[1])
         self._apply_two_qubit_noise(wires)
-
-    def _define_gate_durations(self, duration_1q_pulse, duration_2q_pulse):
-        return [duration_1q_pulse, duration_2q_pulse]

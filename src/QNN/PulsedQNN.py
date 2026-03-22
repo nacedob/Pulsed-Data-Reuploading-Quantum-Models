@@ -58,33 +58,6 @@ class PulsedQNN(BaseQNN):
             seed: The random seed used for reproducibility. Defaults to None.
             noise: A boolean indicating whether to apply noise to the circuit. Defaults to False.
 
-        Attributes:
-            num_qubits: The number of qubits in the QNN.
-            num_layers: The number of layers in the QNN.
-            params_per_layer: The number of parameters per layer = 3.
-            interface: The interface used for the QNN ('jax' or 'pennylane').
-            seed: The random seed used for reproducibility.
-            params: The parameters of the QNN circuit.
-            projection_angles: The angles used for projection measurements.
-            trained: A boolean indicating whether the QNN has been trained.
-            training_info: A dictionary to store training information.
-            dev: The PennyLane quantum device used for simulations.
-            n_workers: The number of workers for parallel execution (currently not effective).
-            name: The name of the specific QNN architecture.
-            model_name: The name of the overall model.
-            pulse_shapes: A list of strings specifying the shape of the pulses for each qubit.
-            pulse_params: A list of dictionaries containing parameters for the pulse shapes.
-            n_trotter: The number of Trotter steps used for Hamiltonian simulation.
-            backend: The name of the backend to simulate.
-            encoding: The type of encoding used for the input data.
-            duration_1q_pulse: The duration of a single-qubit gate in nanoseconds.
-            duration_2q_pulse: The duration of a two-qubit gate in nanoseconds.
-            constant4amplitude: A constant factor to multiply parameterized pulse amplitudes.
-            q_freq: A list of qubit frequencies for the chosen backend.
-            connections: A list of qubit connections for the chosen backend.
-            coupling: The coupling strength between connected qubits.
-            AMPLITUDE_BOUNDARY: The lower and upper bounds for pulse amplitudes.
-
         Raises:
             ValueError:
               - If the interface is not 'jax'.
@@ -95,14 +68,16 @@ class PulsedQNN(BaseQNN):
         """
 
         if interface != 'jax':
-            raise ValueError('Only JAX interface is currently supported.')
+            raise NotImplementedError('Only JAX interface is currently supported.')
 
-        # Gate durations and shape
-        self.duration_1q_pulse, self.duration_2q_pulse = self._define_gate_durations(duration_1q_pulse, duration_2q_pulse)
-
-        super().__init__(num_qubits, num_layers, n_workers, params_per_layer=4, interface=interface, seed=seed,
+        # Call parent constructor
+        super().__init__(num_qubits=num_qubits, num_layers=num_layers, n_workers=n_workers,
+                         params_per_layer=4, interface=interface, seed=seed, 
+                         duration_1q_pulse=duration_1q_pulse, duration_2q_pulse=duration_2q_pulse,
                          noise=noise, noise_parameters=noise_parameters, noise_sources=noise_sources,
                          regularization=regularization)
+        self.duration_1q_pulse = self.duration_1q_gate
+        self.duration_2q_pulse = self.duration_2q_gate
 
         # Constant to multiply parametrized pulse amplitudes
         self.constant4amplitude = constant4amplitude
@@ -133,7 +108,8 @@ class PulsedQNN(BaseQNN):
                 raise ValueError('Pulse parameters introduced is not a list of dicts.')
             if len(pulse_params) != self.num_qubits:
                 raise ValueError(
-                    f'Pulse parameters list must have the same length as the number of qubits ({self.num_qubits}).')
+                    f'Pulse parameters list must have the same length as the number of qubits ({self.num_qubits}).'
+                )
         self.pulse_params = pulse_params
 
         for i in range(self.num_qubits):
@@ -161,9 +137,6 @@ class PulsedQNN(BaseQNN):
             raise ValueError(f'Invalid number of qubits: {self.num_qubits}. Supported qubit numbers are 1 and 2.')
 
         self.n_trotter = n_trotter
-
-        # Store accumulated phases (TODO)
-        # self.pulse_phases = jnp.zeros(2) if self.interface == 'jax' else qml.numpy.zeros(2, requires_grad=True)
 
         # Physical pulse parameters limits
         self.AMPLITUDE_BOUNDARY = [1e-3, 10000]
@@ -305,11 +278,3 @@ class PulsedQNN(BaseQNN):
         """
         p = p.at[:, :, 1].set(jnp.clip(p[:, :, 1], *self.AMPLITUDE_BOUNDARY))
         return p
-
-
-    def _define_gate_durations(self, duration_1q_pulse: float, duration_2q_pulse: float) -> [float, float]:
-        """
-        Both cases use just one pulse, so it is directly the pulse duration
-        """
-        return [duration_1q_pulse, duration_2q_pulse]
-    
