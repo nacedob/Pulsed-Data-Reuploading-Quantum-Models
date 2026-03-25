@@ -64,8 +64,10 @@ Scripts for running experiments on 2D, 3D, and real datasets. Experiments involv
 1. Clone the repository:
 ```bash
 git clone https://github.com/nacedob/Pulsed-Data-Reuploading-Quantum-Models.git
+```
 
 2. Install dependencies:
+
 The recommended method is to use [`uv` package manager](https://docs.astral.sh/uv/getting-started/installation/):
 ```bash
 cd Pulsed-Data-Reuploading-Quantum-Models
@@ -79,6 +81,7 @@ pip install -r requirements.txt
 ```
 
 3. Run the main script:
+
 If you have uv installed:
 ```bash
 uv run main.py
