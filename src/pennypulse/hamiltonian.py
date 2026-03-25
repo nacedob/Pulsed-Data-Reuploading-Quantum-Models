@@ -202,17 +202,5 @@ def a(wire):
 def ad(wire):
     return 0.5 * X(wire) - 0.5j * Y(wire)
 
-def transmon_manually(freqs: [float, Sequence], coupling: Sequence=None):
-    nWires = 1 if isinstance(freqs, (int, float)) else len(freqs)
-    if nWires > 1 and coupling is None:
-        raise ValueError("Must provide coupling if there are multiple wires.")
-    H_base = dot(freqs, [ad(i) @ a(i) for i in range(nWires)])
-    if nWires > 1:
-        H_base += dot(
-            coupling,
-            [ad(i) @ a((i + 1) % nWires) + ad((i + 1) % nWires) @ a(i) for i in range(nWires)],
-        )
-    return H_base
-
 
 

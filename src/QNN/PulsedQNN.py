@@ -190,13 +190,22 @@ class PulsedQNN(BaseQNN):
                 self._encoding(x, wire=qubit)   # this includes noise
                 # Actuation of params
                 if qubit != 0:
-                    self._create_1q_gate(params=params[2 * qubit - 1][layer, :], wire=qubit)    # this includes noise
-                    self._create_2q_gate(params=params[2 * qubit][layer, :], wires=[0, qubit])  # this includes noise
+                    self._create_1q_pulse_operation(
+                        params=params[2 * qubit - 1][layer, :], 
+                        wire=qubit
+                    ) # this includes noise
+                    self._create_2q_pulse_operation(
+                        params=params[2 * qubit][layer, :],
+                        wires=[0, qubit]
+                    )  # this includes noise
                 else:
-                    self._create_1q_gate(params=params[qubit][layer, :], wire=qubit)            # this includes noise
+                    self._create_1q_pulse_operation(
+                        params=params[qubit][layer, :],
+                        wire=qubit
+                    )            # this includes noise
 
     # Pulsed gate design
-    def _create_1q_gate(self, params: list, wire: int) -> None:
+    def _create_1q_pulse_operation(self, params: list, wire: int) -> None:
         """
         As in GateQNN model, I perform:
          RZ(params[4]), RY(amplitude = params[1], freq_shift = params[2]) RZ(params[0])
@@ -232,7 +241,7 @@ class PulsedQNN(BaseQNN):
         # Virtual Z rotation
         qml.RZ(params[3], wires=wire)
 
-    def _create_2q_gate(self, params: list, wires: list[int]) -> None:
+    def _create_2q_pulse_operation(self, params: list, wires: list[int]) -> None:
         """
         I perform a single pulse to create entanglement. The reference pulse corresponds to the CR gate, but parameters
         can deviate it from the exact CR parameters if convenient.

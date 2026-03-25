@@ -12,9 +12,8 @@ from pennylane.ops.qubit import QubitUnitary
 
 class Hermitian(Observable):
     r"""
-    _Comentarios Nacho_: La diferencia con la clase original esta en que he hecho que no se validen
-    los inputs. Falla cuando se usa con jax por hacer comparaciones. Asi lo que tenga que ver con esto
-    esta comentado
+    The difference with the original class is that I removed input validation. 
+    It fails when used with JAX due to comparisons, so anything related to that has been commented out.
 
 
     An arbitrary Hermitian observable.

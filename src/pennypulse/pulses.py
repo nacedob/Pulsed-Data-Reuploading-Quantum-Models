@@ -16,8 +16,9 @@ from jax import numpy as jnp
 def transmon_drive(amplitude: Callable, phase: float, freq: float, wires: int, d=2):
     r"""
 
-    HE MODIFICADO PARA QUE EL DRIVING SEA EN X Y NO EN Y. EL RESTO LO HE DEJADO IGUAL,
-    INCLUYENDO ESTA DOCUMENTACION DE ABAJO
+    I have modified this so that the driving is along x instead of y. everything else
+    has been left the same, including the documentation below
+
 
     Returns a :class:`ParametrizedHamiltonian` representing the drive term of a transmon qubit.
 
@@ -216,21 +217,23 @@ def pulse1q(q_freq: float,
             n_trotter: int = 10,
             t_start: float = 0) -> None:
     """
-    se aplica el hamiltoniano de la ecuacion (91) del quantum engineers paper
+    the Hamiltonian from equation (91) of the quantum engineers paper [1] is applied
     H = -A * shape(t) [[0, exp{1j * (delta_w * t + phase)}]
                        [exp{-1j * (delta_w * t + phase)}, 0]]
     Entonces:
     exp{-1j * H * t} |ψ> = Π_i (exp{1j * A * ∫_[t1,t2] shape(τ) [[0, exp{1j * (delta_w * τ + phase)}]  dτ)  |ψ>
                                (                                [exp{-1j * (delta_w * τ + phase)}, 0]]}  )
+                               
+    [1] https://arxiv.org/abs/1904.06560
     """
     step = duration / n_trotter
 
     t_vals = jnp.arange(t_start, t_start + duration, step)
     delta = q_freq - drive_freq
-    integrando_x = lambda t:   amplitude_func(t)    * jnp.cos((delta * t + drive_phase))
-    integrando_y = lambda t: -2 * amplitude_func(t) * jnp.sin((delta * t + drive_phase))
-    integration_x = integrate_ranges(integrando_x, t_vals)
-    integration_y = integrate_ranges(integrando_y, t_vals)
+    integrand_x = lambda t:   amplitude_func(t)    * jnp.cos((delta * t + drive_phase))
+    integrand_y = lambda t: -2 * amplitude_func(t) * jnp.sin((delta * t + drive_phase))
+    integration_x = integrate_ranges(integrand_x, t_vals)
+    integration_y = integrate_ranges(integrand_y, t_vals)
 
     for n in range(n_trotter-1):
         RX(integration_x[n], wires=wire)
