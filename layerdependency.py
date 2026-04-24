@@ -17,7 +17,7 @@ N_TRAIN = 300
 N_TEST = 100
 EXPERIMENT_FOLDER = 'LAYERS_FOLDER'
 NOISE_SOURCES = ['all']
-DATASETS = ['digits_08']
+DATASETS = ['iris', 'digits_17', 'corners3d', 'digits_56']
 
 # Default Experiment Dictionary (Template)
 BASE_ARGS = {
