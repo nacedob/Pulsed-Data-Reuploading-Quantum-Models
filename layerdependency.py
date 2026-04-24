@@ -15,12 +15,13 @@ DEBUG_NOISE = False
 METRIC_TUNING = 'loss'
 N_TRAIN = 300
 N_TEST = 100
-EXPERIMENT_FOLDER = 'LAYERS_FOLDER'
+EXPERIMENT_FOLDER = 'LAYERS_EXPERIMENT'
 NOISE_SOURCES = ['all']
-DATASETS = ['iris', 'digits_17', 'corners3d', 'digits_56']
+DATASETS = ['iris', 'digits_17', 'digits_56']
 
 # Default Experiment Dictionary (Template)
 BASE_ARGS = {
+    'models': "['gate', 'mixed']",
     'n_qubits': 2,
     'n_seeds': 1,
     'layers_min': 0,

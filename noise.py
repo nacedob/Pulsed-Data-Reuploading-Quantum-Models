@@ -45,6 +45,7 @@ def run_orchestrator():
                 # Construct the overrides dictionary
                 # Keys match the DEFAULTS in final_experiment.py
                 experiment_config = {
+                    'models': "['gate', 'mixed']",
                     'dataset': dataset,
                     'n_qubits': 2,
                     'layers_min': 20,
