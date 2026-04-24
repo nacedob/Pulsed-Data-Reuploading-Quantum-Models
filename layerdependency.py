@@ -34,7 +34,7 @@ BASE_ARGS = {
     'noise': True,
     'load': True,
     'optimizer': 'rms',
-    'save_qnn': True,
+    'save_qnn': False,
     'metric_tuning': METRIC_TUNING,
     'n_train': N_TRAIN,
     'n_test': N_TEST,

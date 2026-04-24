@@ -103,6 +103,9 @@ def get_parser() -> argparse.ArgumentParser:
             parser.add_argument(arg_name, type=str, default=val)
     return parser
 
+def get_partial_path(folder: str, n_qubits: int, n_layers: int, seed: int) -> str:
+    return f'{folder}/partial/n_qubits_{n_qubits}__n_layers_{n_layers}__seed_{seed}.csv'
+
 
 def get_tuning_score(
     train_set: np.ndarray,
@@ -216,6 +219,12 @@ def train_and_evaluate(
         os.makedirs(qnn_folder, exist_ok=True)
         save_path = os.path.join(qnn_folder, f'qnn_q_{n_qubits}_l_{n_layers}_s_{seed}.{pickle_extension}')
         qnn.save_qnn(path=save_path)
+        
+    print(f'\n Model {model_key} trained for n_qubits={n_qubits}, n_layers={n_layers}, seed={seed}, dataset={config["dataset"]} \n ')
+    print(f"\tTrain loss: {train_loss}")
+    print(f"\tTest loss: {test_loss}")
+    print(f"\tTrain accuracy: {final_acc_train}")
+    print(f"\tTest accuracy: {final_acc_test}\n")
 
     return pd.DataFrame([{
         'model': model_key, 'n_qubits': n_qubits, 'n_layers': n_layers, 'seed': seed,
@@ -258,8 +267,11 @@ def main(overrides: Optional[Dict[str, Any]] = None):
 
     root = get_root_path(project_name='Pulsed-Data-Reuploading-Quantum-Models')
     results_path = os.path.join(
-        root, f"data/results/{config['folder'] or 'final_experiment'+suffix}/{device_folder}/{config['dataset']}")
+        root,
+        f"data/results/{config['folder'] or 'final_experiment'+suffix}/{device_folder}/{config['dataset']}"
+    )
     os.makedirs(results_path, exist_ok=True)
+    os.makedirs(f'{results_path}/partial', exist_ok=True)
 
     exp_id = get_highest_id(folder_path=results_path) + 1
     print_in_blue(text=f"Starting Experiment ID: {exp_id} | Dataset: {config['dataset']}")
@@ -267,12 +279,31 @@ def main(overrides: Optional[Dict[str, Any]] = None):
     all_stats = []
     start_time = time()
 
+    models = ['gate', 'gate_spherical', 'mixed', 'pulsed']
+    if config['trained_models'] != 'all':
+        models = [m for m in models if m in config['trained_models']]
+    
     # 4. Loops
     for n_q in config['n_qubits']:
         for n_l in range(config['layers_min'], config['layers_max'] + 1, config['layers_step']):
             if n_l == 0:
                 n_l = 1
             for seed in range(config['starting_seed'], config['starting_seed'] + config['n_seeds']):
+                print('='*80)
+                print(f'Dataset: {config["dataset"]} | Qubits: {n_q} | Layers: {n_l} | Seed: {seed}')
+                
+                partial_path = get_partial_path(folder=results_path, n_qubits=n_q, n_layers=n_l, seed=seed)
+                
+                # Skip if already exists
+                if os.path.exists(partial_path):
+                    stats_df = pd.read_csv(partial_path)
+                    models_in_partial = set(stats_df['model'].unique())
+                    
+                    if set(models).issubset(models_in_partial):
+                        print(f'Loaded from {partial_path}\n\n')
+                        partial_results_df = stats_df[stats_df['model'].isin(models)]
+                        continue
+                print('Starting experiment')
 
                 train_x, train_y, test_x, test_y = get_dataset(
                     dataset=config['dataset'],
@@ -283,10 +314,8 @@ def main(overrides: Optional[Dict[str, Any]] = None):
                     seed=seed
                 )
 
-                models = ['gate', 'gate_spherical', 'mixed', 'pulsed']
-                if config['trained_models'] != 'all':
-                    models = [m for m in models if m in config['trained_models']]
-
+                partial_results_df = pd.DataFrame()
+                
                 for model_type in models:
                     if config['tuning']:
                         study = optuna.create_study(direction="minimize")
@@ -327,6 +356,15 @@ def main(overrides: Optional[Dict[str, Any]] = None):
                         config=config, QNN_PATH=os.path.join(results_path, 'trained_qnn')
                     )
                     all_stats.append(stats_df)
+                    partial_results_df = pd.concat([partial_results_df, stats_df])
+                    
+                # Save partial results
+                partial_results_df.to_csv(partial_path)
+                print(
+                    f'Experiment for dataset {config["dataset"]}, {n_q} qubits, {n_l} layers and seed {seed} '
+                    f'saved to {partial_path}\n\n'
+                )
+                
 
     # 5. Save Results
     if all_stats:
