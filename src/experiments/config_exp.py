@@ -220,7 +220,7 @@ def get_dataset(dataset: str, n_train: int, n_test: int, interface: str, points_
         train_set, train_labels = Sampler3D.torus(n_points=n_train, seed=seed, interface=interface)
         test_set, test_labels = Sampler3D.torus(n_points=n_test, seed=seed, interface=interface)
     else:
-        raise ValueError(f'Dataset {dataset} not recognized. Available: fashion, digits, annulus and circles')
+        raise ValueError(f'Dataset {dataset} not recognized.')
 
     # Scale dataset
     train_set = scale_points(train_set, scale_range=(-scale, scale), center=True)

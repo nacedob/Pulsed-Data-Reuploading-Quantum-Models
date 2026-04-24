@@ -94,9 +94,17 @@ class BaseQNN(ABC):
         random.seed(self.seed)
         self.random_key = jax.random.PRNGKey(seed)
         np.random.seed(self.seed)
+        
+        if num_qubits <= 0:
+            raise ValueError(f"The number of qubits must be greater than 0. Got {num_qubits=}.")
+
+        if num_layers <= 0:
+            raise ValueError(f"The number of layers must be greater than 0. Got {num_layers=}.")
 
         if num_qubits > num_layers + 1:
-            raise ValueError("The number of qubits cannot be greater than the number of layers + 1")
+            raise ValueError(
+                f"The number of qubits cannot be greater than the number of layers + 1. Got {num_qubits=} and {num_layers=}."
+            )
 
         self.num_qubits = num_qubits
         self.num_layers = num_layers

@@ -1,70 +1,82 @@
-from icecream import ic
-from warnings import filterwarnings
-from src.experiments.final_experiment import main
-from ast import literal_eval
 import sys
+from ast import literal_eval
+from typing import List, Iterable
+from warnings import filterwarnings
+from icecream import ic
 
-if len(sys.argv) > 1:
-    model_list = eval(sys.argv[1])
-else:
-    model_list = ['gate','mixed']
-
-if len(sys.argv) > 2:
-    seed_list = literal_eval(sys.argv[2])
-else:
-    seed_list = range(5)
+from src.experiments.final_experiment import main
 
 filterwarnings('ignore', category=RuntimeWarning)
 filterwarnings('ignore', category=Warning)
 
+# --- Global Constants ---
 JOBS = 5
-
-MODELS = "['gate','mixed']"   # 'loss'
 DEBUG_NOISE = False
-REGULARIZATION_QNN = 0
-REGULARIZATION_TUNING = 0
-METRIC_TUNING = 'loss'   # 'loss'
-n_points_train = 300
-n_points_test = 100
+METRIC_TUNING = 'loss'
+N_TRAIN = 300
+N_TEST = 100
 EXPERIMENT_FOLDER = 'LAYERS_FOLDER'
-
 NOISE_SOURCES = ['all']
-datasets = ['digits_08']   #, 'digits_17', 'fashion', 'shell', 'helix']
+DATASETS = ['digits_08']
 
-
-args = {
+# Default Experiment Dictionary (Template)
+BASE_ARGS = {
     'n_qubits': 2,
-    'n_seeds': 1 ,
+    'n_seeds': 1,
     'layers_min': 0,
     'layers_max': 50,
     'layers_step': 5,
-    'n_epochs': 30,  
-    'n_trials': 30,
+    'n_epochs': 30,
+    'trials_tuning': 30,
     'n_jobs': JOBS,
-    'tuning_bool': True,
-    'noise_bool': True,
-    'LOAD_RESULTS': True,
+    'tuning': True,
+    'noise': True,
+    'load': True,
     'optimizer': 'rms',
-    'realistic_gates': False,
     'save_qnn': True,
-    'eqk_bool': False,
-    'trained_models': model_list,
-    'metric_tuning': 'loss',
-    'n_train': n_points_train,
-    'n_test': n_points_test,
-    'experiment_folder': EXPERIMENT_FOLDER,
+    'metric_tuning': METRIC_TUNING,
+    'n_train': N_TRAIN,
+    'n_test': N_TEST,
+    'folder': EXPERIMENT_FOLDER,
     'regularization': 0,
     'debug_noise': DEBUG_NOISE
-    }
-
-def get_args(dataset: str, seed: int) -> dict:
-    args_ = args.copy()
-    args_['dataset'] = dataset
-    args_['starting_seed'] = seed
-    return args_
+}
 
 
-for dataset in datasets:
-    for seed in seed_list:
-        ic(dataset, seed)
-        main(get_args(dataset, seed))
+def parse_runtime_args() -> tuple[List[str], Iterable[int]]:
+    models = ['gate', 'mixed']
+    seeds = range(5)
+
+    if len(sys.argv) > 1:
+        try:
+            models = literal_eval(sys.argv[1])
+        except (ValueError, SyntaxError):
+            print(f"Warning: Could not parse model list '{sys.argv[1]}'. Using defaults.")
+
+    if len(sys.argv) > 2:
+        try:
+            seeds = literal_eval(sys.argv[2])
+        except (ValueError, SyntaxError):
+            print(f"Warning: Could not parse seed list '{sys.argv[2]}'. Using defaults.")
+
+    return models, seeds
+
+
+if __name__ == '__main__':
+    model_list, seed_list = parse_runtime_args()
+
+    for dataset in DATASETS:
+        for seed in seed_list:
+            # Prepare overrides for this specific iteration
+            iteration_overrides = BASE_ARGS.copy()
+            iteration_overrides.update({
+                'dataset': dataset,
+                'starting_seed': seed,
+                'trained_models': model_list
+            })
+
+            print("\n" + "=" * 50)
+            ic(dataset, seed, model_list)
+            print("=" * 50 + "\n")
+
+            main(iteration_overrides)
