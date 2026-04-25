@@ -7,6 +7,7 @@ from warnings import filterwarnings
 # Internal Imports
 from src.utils import load_json_to_dict
 from src.experiments.final_experiment import main
+from config import DATASETS
 
 # Global Settings
 filterwarnings('ignore', category=RuntimeWarning)
@@ -14,7 +15,7 @@ filterwarnings('ignore', category=Warning)
 
 # --- Configuration Constants ---
 JOBS = 4
-MODELS = ['gate', 'mixed']
+SEEDS = 1
 METRIC_TUNING = 'loss'
 N_TRAIN = 300
 N_TEST = 100
@@ -35,7 +36,7 @@ DATASETS = ['digits_08']
 
 def run_orchestrator():
     # We iterate seeds first as per your original logic requirements
-    for seed in range(6):
+    for seed in range(SEEDS):
         print(f"\n{'='*30}\nRUNNING BATCH FOR SEED: {seed}\n{'='*30}")
         
         for dataset in DATASETS:
@@ -55,7 +56,7 @@ def run_orchestrator():
                     'n_seeds': 1,
                     'starting_seed': seed,
                     'n_jobs': JOBS,
-                    'trained_models': MODELS,
+                    'trained_models': "['gate', 'mixed']",
                     # Pass the dict directly, main() handles the rest
                     'noise_parameters': {'depolarizing_1q': p_val},
                     'metric_tuning': METRIC_TUNING,

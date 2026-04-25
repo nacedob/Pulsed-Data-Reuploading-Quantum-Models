@@ -335,31 +335,6 @@ def print_in_dark_gray(text):
   colorize(text, 90)
 
 
-
-def get_root_path(project_name):
-
-    # Get the absolute path of the current file
-
-    # Get the current working directory
-    current_working_dir = os.getcwd()
-
-    # Split the path into parts
-    path_parts = current_working_dir.split(os.sep)
-
-    # Find the index of the target directory
-    try:
-        target_index = path_parts.index(project_name)
-    except ValueError:
-        raise ValueError(f"Directory '{project_name}' not found in the current working directory path.")
-
-    # Join the path up to and including the target directory
-    source_directory = os.sep.join(path_parts[:target_index + 1])
-    source_directory = source_directory.replace('\\', '/')
-
-    return source_directory
-
-
-
 def get_current_folder_parent_script():
     return os.getcwd().replace('\\', '/')
 

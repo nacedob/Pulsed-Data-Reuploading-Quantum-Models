@@ -12,8 +12,7 @@ import os
 from jax import numpy as jnp
 from pennylane import numpy as qnp
 import random
-from src.utils import get_root_path
-
+from config import get_root_path
 
 def _load_and_filter_data(train_data, test_data, label1, label2):
     # Separar características (X) y etiquetas (y)
@@ -139,7 +138,7 @@ class MNISTSampler:
     def digits(n_train: int = 2000, n_test: int = 1000, points_dimension: int = 784,
                label1: int = 8, label2: int = 0,
                seed: int = None, interface: str = 'jax', path='mnist.npz'):
-        root = get_root_path('Pulsed-Data-Reuploading-Quantum-Models')
+        root = get_root_path()
         path = os.path.join(root, 'src/Sampler/mnist/mnist.npz')
         try:
             data = np_load(path)

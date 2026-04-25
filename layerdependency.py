@@ -5,11 +5,13 @@ from warnings import filterwarnings
 from icecream import ic
 
 from src.experiments.final_experiment import main
+from config import DATASETS
 
 filterwarnings('ignore', category=RuntimeWarning)
 filterwarnings('ignore', category=Warning)
 
 # --- Global Constants ---
+SEEDS = 1
 JOBS = 5
 DEBUG_NOISE = False
 METRIC_TUNING = 'loss'
@@ -17,7 +19,6 @@ N_TRAIN = 300
 N_TEST = 100
 EXPERIMENT_FOLDER = 'LAYERS_EXPERIMENT'
 NOISE_SOURCES = ['all']
-DATASETS = ['iris', 'digits_17', 'digits_56']
 
 # Default Experiment Dictionary (Template)
 BASE_ARGS = {
@@ -46,7 +47,7 @@ BASE_ARGS = {
 
 def parse_runtime_args() -> tuple[List[str], Iterable[int]]:
     models = ['gate', 'mixed']
-    seeds = range(1)
+    seeds = range(SEEDS)
 
     if len(sys.argv) > 1:
         try:

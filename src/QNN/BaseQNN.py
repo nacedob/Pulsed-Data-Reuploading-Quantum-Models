@@ -12,7 +12,8 @@ import random
 from .constants import DEFAULT_1Q_PULSE_DURATION, DEFAULT_2Q_PULSE_DURATION
 from joblib import Parallel, delayed
 from typing import Union, Sequence
-from src.utils import iterate_minibatches, accuracy_score, increase_dimensions, save_pickle, load_pickle, get_root_path
+from src.utils import iterate_minibatches, accuracy_score, increase_dimensions, save_pickle, load_pickle
+from config import get_root_path
 from icecream import ic
 from typing import Optional, List
 import src.pennypulse as pennypulse
@@ -38,7 +39,7 @@ DEFAULT_EARLY_STOPPING = {
     'min_delta': 1e-4,  # Minimum improvement to reset patience
 }
 
-root = get_root_path('Pulsed-Data-Reuploading-Quantum-Models')
+root = get_root_path()
 
 
 class BaseQNN(ABC):

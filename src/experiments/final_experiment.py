@@ -22,10 +22,10 @@ from warnings import filterwarnings
 from src.utils import (
     save_dict_to_json,
     print_in_blue,
-    get_root_path,
     pickle_extension
 )
 from src.QNN.BaseQNN import BaseQNN
+from config import get_root_path
 from .config_exp import (
     get_highest_id,
     get_dataset,
@@ -263,9 +263,10 @@ def main(overrides: Optional[Dict[str, Any]] = None):
     suffix = ('_noise' if config['noise'] else '') + ('_debug' if config['debug_noise'] else '')
     device_folder = _get_device_folder(
         noise_parameters=config['noise_parameters'],
-        noise_sources=config['noise_sources_list'])
+        noise_sources=config['noise_sources_list']
+    )
 
-    root = get_root_path(project_name='Pulsed-Data-Reuploading-Quantum-Models')
+    root = get_root_path()
     results_path = os.path.join(
         root,
         f"data/results/{config['folder'] or 'final_experiment'+suffix}/{device_folder}/{config['dataset']}"
