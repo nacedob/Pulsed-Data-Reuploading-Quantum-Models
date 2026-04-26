@@ -32,7 +32,6 @@ HIGH_NOISE = str(noise_mapper['high_noise']).replace(' ', '')
 
 # Generate noise range: [0, 0.03, 0.06, ..., 0.3]
 NOISE_VALUES = np.arange(0, 0.3001, 0.03).round(3)
-DATASETS = ['digits_08']
 
 def run_orchestrator():
     # We iterate seeds first as per your original logic requirements
