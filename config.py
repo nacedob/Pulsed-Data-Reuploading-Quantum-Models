@@ -1,6 +1,6 @@
 import os
 
-DATASETS = ['iris', 'digits_17', 'digits_56']
+DATASETS = ['digits_17', 'digits_56']
 
 def get_root_path(start_path: str | None = None) -> str:
     path = os.path.abspath(start_path or os.getcwd())
