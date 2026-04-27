@@ -26,7 +26,7 @@ BASE_ARGS = {
     'n_qubits': 2,
     'n_seeds': 1,
     'layers_min': 0,
-    'layers_max': 25,
+    'layers_max': 50,
     'layers_step': 5,
     'n_epochs': 30,
     'trials_tuning': 30,
