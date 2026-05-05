@@ -12,7 +12,7 @@ filterwarnings('ignore', category=Warning)
 
 # --- Global Constants ---
 SEEDS = 1
-JOBS = 5
+JOBS = 3
 DEBUG_NOISE = False
 METRIC_TUNING = 'loss'
 N_TRAIN = 300
