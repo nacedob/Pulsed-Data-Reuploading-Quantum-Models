@@ -94,7 +94,7 @@ class Sampler3D:
     
     @staticmethod
     def corners3d(n_points: int = DEFAULT_N_POINTS, spread: float = DEFAULT_SPREAD, interface: str = 'jax', seed: int = None):
-        radii = [0.75] * 8
+        radii = [0.984] * 8
         centers = [[-1, -1, -1], [1, -1, -1], [-1, 1, -1], [-1, -1, 1], [1, 1, -1], [1, -1, 1], [-1, 1, 1], [1, 1, 1]]
         return Sampler3D.multi_spheres(n_points=n_points, radii=radii, centers=centers,
                                     spread=spread, seed=seed, interface=interface)
