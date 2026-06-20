@@ -1,0 +1,444 @@
+
+==============================
+RUNNING BATCH FOR SEED: 0
+==============================
+[94mStarting Experiment ID: 1 | Dataset: corners3d[0m
+================================================================================
+Dataset: corners3d | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.0/corners3d/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: corners3d[0m
+================================================================================
+Dataset: corners3d | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.03/corners3d/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: corners3d[0m
+================================================================================
+Dataset: corners3d | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.06/corners3d/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: corners3d[0m
+================================================================================
+Dataset: corners3d | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.09/corners3d/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: corners3d[0m
+================================================================================
+Dataset: corners3d | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.12/corners3d/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: corners3d[0m
+================================================================================
+Dataset: corners3d | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.15/corners3d/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: corners3d[0m
+================================================================================
+Dataset: corners3d | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.18/corners3d/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: corners3d[0m
+================================================================================
+Dataset: corners3d | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.21/corners3d/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: corners3d[0m
+================================================================================
+Dataset: corners3d | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.24/corners3d/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: corners3d[0m
+================================================================================
+Dataset: corners3d | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.27/corners3d/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: corners3d[0m
+================================================================================
+Dataset: corners3d | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.3/corners3d/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: helix[0m
+================================================================================
+Dataset: helix | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.0/helix/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: helix[0m
+================================================================================
+Dataset: helix | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.03/helix/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: helix[0m
+================================================================================
+Dataset: helix | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.06/helix/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: helix[0m
+================================================================================
+Dataset: helix | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.09/helix/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: helix[0m
+================================================================================
+Dataset: helix | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.12/helix/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: helix[0m
+================================================================================
+Dataset: helix | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.15/helix/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: helix[0m
+================================================================================
+Dataset: helix | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.18/helix/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: helix[0m
+================================================================================
+Dataset: helix | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.21/helix/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: helix[0m
+================================================================================
+Dataset: helix | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.24/helix/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: helix[0m
+================================================================================
+Dataset: helix | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.27/helix/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: helix[0m
+================================================================================
+Dataset: helix | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.3/helix/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 2 | Dataset: iris[0m
+================================================================================
+Dataset: iris | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.0/iris/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 2 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 2 | Dataset: iris[0m
+================================================================================
+Dataset: iris | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.03/iris/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 2 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 2 | Dataset: iris[0m
+================================================================================
+Dataset: iris | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.06/iris/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 2 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: iris[0m
+================================================================================
+Dataset: iris | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.09/iris/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: iris[0m
+================================================================================
+Dataset: iris | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.12/iris/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: iris[0m
+================================================================================
+Dataset: iris | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.15/iris/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: iris[0m
+================================================================================
+Dataset: iris | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.18/iris/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: iris[0m
+================================================================================
+Dataset: iris | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.21/iris/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: iris[0m
+================================================================================
+Dataset: iris | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.24/iris/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: iris[0m
+================================================================================
+Dataset: iris | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.27/iris/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: iris[0m
+================================================================================
+Dataset: iris | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.3/iris/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: digits_08[0m
+================================================================================
+Dataset: digits_08 | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.0/digits_08/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: digits_08[0m
+================================================================================
+Dataset: digits_08 | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.03/digits_08/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: digits_08[0m
+================================================================================
+Dataset: digits_08 | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.06/digits_08/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: digits_08[0m
+================================================================================
+Dataset: digits_08 | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.09/digits_08/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: digits_08[0m
+================================================================================
+Dataset: digits_08 | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.12/digits_08/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: digits_08[0m
+================================================================================
+Dataset: digits_08 | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.15/digits_08/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: digits_08[0m
+================================================================================
+Dataset: digits_08 | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.18/digits_08/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: digits_08[0m
+================================================================================
+Dataset: digits_08 | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.21/digits_08/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: digits_08[0m
+================================================================================
+Dataset: digits_08 | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.24/digits_08/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: digits_08[0m
+================================================================================
+Dataset: digits_08 | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.27/digits_08/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+
+[94mStarting Experiment ID: 1 | Dataset: digits_08[0m
+================================================================================
+Dataset: digits_08 | Qubits: 2 | Layers: 20 | Seed: 0
+Loaded from /mnt/usuarios_seguros/ibab/Pulsed-Data-Reuploading-Quantum-Models/data/results/NOISE_EXPERIMENT/depolarizing_1q_0.3/digits_08/partial/n_qubits_2__n_layers_20__seed_0.csv
+
+
+[94m[END] Experiment 1 finished in 0.00s[0m
+
+==============================
+

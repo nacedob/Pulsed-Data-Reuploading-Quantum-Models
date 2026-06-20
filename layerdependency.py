@@ -11,8 +11,8 @@ filterwarnings('ignore', category=RuntimeWarning)
 filterwarnings('ignore', category=Warning)
 
 # --- Global Constants ---
-SEEDS = 1
-JOBS = 3
+SEEDS = 3
+JOBS = 5
 DEBUG_NOISE = False
 METRIC_TUNING = 'loss'
 N_TRAIN = 300
@@ -26,10 +26,10 @@ BASE_ARGS = {
     'n_qubits': 2,
     'n_seeds': 1,
     'layers_min': 0,
-    'layers_max': 50,
+    'layers_max': 30,
     'layers_step': 5,
     'n_epochs': 30,
-    'trials_tuning': 30,
+    'trials_tuning': 25,
     'n_jobs': JOBS,
     'tuning': True,
     'noise': True,
@@ -67,8 +67,8 @@ def parse_runtime_args() -> tuple[List[str], Iterable[int]]:
 if __name__ == '__main__':
     model_list, seed_list = parse_runtime_args()
 
-    for dataset in DATASETS:
-        for seed in seed_list:
+    for seed in seed_list:
+       for dataset in DATASETS:
             # Prepare overrides for this specific iteration
             iteration_overrides = BASE_ARGS.copy()
             iteration_overrides.update({

@@ -15,7 +15,7 @@ filterwarnings('ignore', category=Warning)
 
 # --- Configuration Constants ---
 JOBS = 4
-SEEDS = 1
+SEEDS = 3
 METRIC_TUNING = 'loss'
 N_TRAIN = 300
 N_TEST = 100
