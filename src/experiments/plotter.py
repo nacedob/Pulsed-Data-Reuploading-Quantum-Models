@@ -11,7 +11,8 @@ RESULTS_FOLDER = ROOT / 'data' / 'results'
 PREVIOUS_FOLDER = RESULTS_FOLDER / 'previous'
 NOISE_FOLDER = RESULTS_FOLDER / 'NOISE_EXPERIMENT'
 LAYER_FOLDER = RESULTS_FOLDER / 'LAYERS_EXPERIMENT'
-SAVE_FOLDER = ROOT / 'data' / 'results' / 'figures'
+RESULT_FOLDER = ROOT / 'data' / 'results' 
+SAVE_FOLDER = RESULT_FOLDER / 'figures' 
 METRIC = 'accuracy'
 
 
@@ -105,10 +106,18 @@ def merge_layers():
     return df
 
 
+
+
 if __name__ == '__main__':
     noise_df = merge_noise()
     layers_df = merge_layers()
     dataset_list = set(noise_df["dataset"].unique()) | set(layers_df["dataset"].unique())
     
+    final_result_folder = RESULT_FOLDER / 'merged'
+    final_result_folder.mkdir(parents=True, exist_ok=True)
+    noise_df.to_csv(final_result_folder / 'noise.csv', index=False)
+    layers_df.to_csv(final_result_folder / 'layers.csv', index=False)
+    
+        
     for dataset in dataset_list:
-        main(dataset=dataset, metric=METRIC, df_layers=layers_df, df_noise=noise_df, save_folder=SAVE_FOLDER / dataset)
+        main(dataset=dataset, metric=METRIC, df_layers=layers_df, df_noise=noise_df, save_folder=SAVE_FOLDER)

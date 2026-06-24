@@ -10,7 +10,7 @@ from icecream import ic
 from config import get_root_path
 from src.experiments.visualization.utils import styles
 
-FONTSIZE = 24
+FONTSIZE = 34
 
 plt.rcParams.update({
     "text.usetex": True,              # activa LaTeX real
@@ -170,7 +170,7 @@ def dataset_mapping(dataset: str) -> str:
         return f"Digits {comparison[0]}-{comparison[1]}"
     mapping = {
         "fashion_mnist": "Fashion-MNIST",
-        "corners3d": "Corners 3D",
+        "corners3d": "Corners",
         "iris": "Iris",
         "helix": "Helix",
     }
@@ -208,7 +208,7 @@ def plot_experiment(
     os.makedirs(save_folder, exist_ok=True)
 
     for exp_name in exp_list:
-        fig, axes = plt.subplots(1, 2, figsize=(16, 5), sharey=True)
+        fig, axes = plt.subplots(1, 2, figsize=(16, 6), sharey=True)
         for axis, split in zip(axes, ["train", "test"]):
             for model in models:
                 key = (exp_name, model, split)
@@ -226,6 +226,8 @@ def plot_experiment(
                     linestyle="-" if split == "train" else "--",
                     color=style["color"],
                     marker=style["marker"],
+                    linewidth=3,
+                    markersize=10
                 )
 
                 axis.fill_between(
@@ -254,25 +256,30 @@ def plot_experiment(
         axes[0].set_ylabel(ylabel, fontsize=FONTSIZE - 2)
         
         if metric != "loss":
-            axes[0].set_ylim(0.5, 1.0)
-            axes[1].set_yticks([0.5, 0.75, 1.0])
-            axes[1].set_ylim(0.5, 1.0)
-            axes[1].set_yticks([0.5, 0.75, 1.0])
+            axes[0].set_ylim(0.4, 1.0)
+            axes[1].set_yticks([0.4, 0.6, 0.8, 1.0])
+            axes[1].set_ylim(0.4, 1.0)
+            axes[1].set_yticks([0.4, 0.6, 0.8, 1.0])
         if exp_name == "layers":
-            axes[0].set_xlim(0, 50)
-            axes[1].set_xlim(0, 50)
-            axes[0].set_xticks([0, 10, 20, 30, 40, 50])
-            axes[1].set_xticks([0, 10, 20, 30, 40, 50])
+            axes[0].set_xlim(0, 31)
+            axes[1].set_xlim(0, 31)
+            axes[0].set_xticks([0, 10, 20, 30])
+            axes[1].set_xticks([0, 10, 20, 30])
+            # TODO: poner las 50 layers
+            # axes[0].set_xlim(0, 50)
+            # axes[1].set_xlim(0, 50)
+            # axes[0].set_xticks([0, 10, 20, 30, 40, 50])
+            # axes[1].set_xticks([0, 10, 20, 30, 40, 50])
         else:
-            axes[0].set_xlim(0.0, 0.3)
-            axes[1].set_xlim(0.0, 0.3)
+            axes[0].set_xlim(-0.005, 0.305)
+            axes[1].set_xlim(-0.005, 0.305)
             axes[0].set_xticks([0.0, 0.1, 0.2, 0.3])
             axes[1].set_xticks([0.0, 0.1, 0.2, 0.3])
             
 
         fig.suptitle(
-            f"Dataset: {dataset_mapping(dataset)}",
-            fontsize=FONTSIZE,
+            rf"\textbf{{{dataset_mapping(dataset)}}}",
+            fontsize=FONTSIZE + 2,
         )
 
         handles, labels = axes[0].get_legend_handles_labels()
@@ -287,11 +294,13 @@ def plot_experiment(
         )
 
         fig.tight_layout(rect=[0, 0.1, 1, 1])
-
+        
         save_path = os.path.join(
             save_folder,
-            f"{exp_name}_{metric}.png",
+            exp_name,
+            f"{dataset}_{metric}.png",
         )
+        os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
         fig.savefig(save_path, dpi=500)
 
