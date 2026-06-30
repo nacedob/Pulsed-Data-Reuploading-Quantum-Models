@@ -11,7 +11,7 @@ filterwarnings('ignore', category=RuntimeWarning)
 filterwarnings('ignore', category=Warning)
 
 # --- Global Constants ---
-SEEDS = 3
+SEEDS = 4
 JOBS = 5
 DEBUG_NOISE = False
 METRIC_TUNING = 'loss'
