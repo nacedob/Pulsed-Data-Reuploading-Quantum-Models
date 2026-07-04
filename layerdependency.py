@@ -11,7 +11,7 @@ filterwarnings('ignore', category=RuntimeWarning)
 filterwarnings('ignore', category=Warning)
 
 # --- Global Constants ---
-SEEDS = 4
+SEEDS = 5
 JOBS = 5
 DEBUG_NOISE = False
 METRIC_TUNING = 'loss'
@@ -25,7 +25,7 @@ BASE_ARGS = {
     'models': "['gate', 'mixed']",
     'n_qubits': 2,
     'n_seeds': 1,
-    'layers_min': 35,
+    'layers_min': 0,
     'layers_max': 40,
     'layers_step': 5,
     'n_epochs': 30,
