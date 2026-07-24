@@ -121,10 +121,10 @@ Once the experiments complete, generate the figures and tables featured in the p
 
 ```bash
 # Generate figures
-python src/experiments/plotter.py
+python -m src.experiments.plotter
 
 # Generate tables
-python src/experiments/tables.py
+python -m src.experiments.tables
 ```
 
 ## Citation
