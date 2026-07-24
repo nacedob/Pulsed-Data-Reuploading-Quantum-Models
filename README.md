@@ -93,6 +93,40 @@ python main.py
 ```
 4. You should see the results in the terminal.
 
+# Reproducing Paper Experiments
+
+This repository includes scripts to reproduce the paper's two main numerical experiments:
+* **Layer Dependency:** Evaluates performance across varying layer depths.
+* **Noise Dependency:** Evaluates robustness across different noise levels.
+
+> ⏱️ **Note:** Running these full experiments can take a significant amount of time depending on your hardware.
+
+---
+
+### Step 1: Run the Experiments
+
+Execute the scripts from the root directory:
+
+```bash
+# Run layer dependency experiment
+python layer_dependency.py
+
+# Run noise dependency experiment
+python noise_dependency.py
+```
+
+### Step 2: Generate Figures & Tables
+
+Once the experiments complete, generate the figures and tables featured in the paper:
+
+```bash
+# Generate figures
+python src/experiments/plotter.py
+
+# Generate tables
+python src/experiments/tables.py
+```
+
 ## Citation
 If you use this code in your research, please cite:
 ```
