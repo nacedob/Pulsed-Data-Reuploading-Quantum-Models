@@ -208,3 +208,7 @@ __marimo__/
 
 
 *.out
+*.png
+src/Sampler/mnist/*
+debug*
+data/results/*

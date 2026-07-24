@@ -17,6 +17,7 @@ def generate_random_points(n_points, spread, point_size: int, interface: str = '
         return spread * (2 * jax.random.uniform(key, shape=(n_points, point_size)) - 1)
     elif interface == 'pennylane':
         return spread * (2 * np.random.rand(n_points, point_size) - 1)
+    
 
 
 

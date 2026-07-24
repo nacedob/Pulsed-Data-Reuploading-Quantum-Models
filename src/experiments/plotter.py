@@ -118,6 +118,8 @@ if __name__ == '__main__':
     noise_df.to_csv(final_result_folder / 'noise.csv', index=False)
     layers_df.to_csv(final_result_folder / 'layers.csv', index=False)
     
+    # Filter till 40 layers
+    layers_df = layers_df[layers_df["n_layers"] <= 40].copy()
         
     for dataset in dataset_list:
         main(dataset=dataset, metric=METRIC, df_layers=layers_df, df_noise=noise_df, save_folder=SAVE_FOLDER)

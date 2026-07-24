@@ -24,7 +24,7 @@ NOISE_SOURCES = ['all']
 BASE_ARGS = {
     'models': "['gate', 'mixed']",
     'n_qubits': 2,
-    'n_seeds': 1,
+    'n_seeds': 5,
     'layers_min': 0,
     'layers_max': 40,
     'layers_step': 5,

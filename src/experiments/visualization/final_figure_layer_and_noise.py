@@ -67,7 +67,6 @@ def aggregate_noise(df: pd.DataFrame) -> pd.DataFrame:
         Aggregated dataframe containing mean and standard deviation
         for each model/metric combination.
     """
-    ic(df.columns)
     df_long = df.melt(
         id_vars=["p", "dataset"],
         value_vars=[
@@ -261,10 +260,10 @@ def plot_experiment(
             axes[1].set_ylim(0.4, 1.0)
             axes[1].set_yticks([0.4, 0.6, 0.8, 1.0])
         if exp_name == "layers":
-            axes[0].set_xlim(0, 31)
-            axes[1].set_xlim(0, 31)
-            axes[0].set_xticks([0, 10, 20, 30])
-            axes[1].set_xticks([0, 10, 20, 30])
+            axes[0].set_xlim(0, 41)
+            axes[1].set_xlim(0, 41)
+            axes[0].set_xticks([0, 10, 20, 30, 40])
+            axes[1].set_xticks([0, 10, 20, 30, 40])
             # TODO: poner las 50 layers
             # axes[0].set_xlim(0, 50)
             # axes[1].set_xlim(0, 50)
