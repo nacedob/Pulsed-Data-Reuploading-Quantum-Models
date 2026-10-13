@@ -93,91 +93,196 @@ def build_block(df: pd.DataFrame, model: str) -> pd.DataFrame:
 
 
 def format_previous_results(previous_path: Path) -> pd.DataFrame:
-    """Load a historical CSV containing gate and mixed model results."""
+    """Load historical wide-format results and convert them to long format."""
+    if not previous_path.is_file():
+        return pd.DataFrame()
+
     df = pd.read_csv(previous_path)
+    required_columns = {
+        "n_qubits", "n_layers", "seed", "dataset",
+        "gate_train_loss", "gate_acc_train", "gate_acc_test", "gate_lr",
+        "mixed_train_loss", "mixed_acc_train", "mixed_acc_test", "mixed_lr",
+    }
+    missing = required_columns.difference(df.columns)
+    if missing:
+        raise ValueError(
+            f"Historical results file '{previous_path}' is missing columns: "
+            f"{sorted(missing)}"
+        )
+
     return pd.concat(
         [build_block(df, "gate"), build_block(df, "mixed")],
         ignore_index=True,
     )
 
 
-# Keep the historical function name available for callers that use it.
-format_previous_noise = format_previous_results
+
+def _resolve_root_path(results_folder: str | Path | None) -> Path:
+    """Resolve the root directory containing experiment result folders."""
+    if results_folder is not None:
+        return Path(results_folder)
+    return Path(get_root_path()) / "data" / "results"
 
 
-def merge_noise(results_folder: str | Path | None = None) -> pd.DataFrame:
-    """Load historical and current noise results into one dataframe.
+def _deduplicate_results(df: pd.DataFrame) -> pd.DataFrame:
+    """Remove duplicate records by their experiment/run identity.
 
-    Current results are read from ``NOISE_EXPERIMENT``. Each device directory
-    is expected to contain a ``depolarizing_1q_<p>`` suffix, and results may be
-    either complete CSV files or CSV files inside a ``partial`` directory.
+    Dataset, model, qubit count, layer count, seed, and noise probability are
+    used when available. Keeping ``seed`` in the identity preserves independent
+    runs for mean/std aggregation. Metric values are deliberately not keys.
     """
-    root = (
-        Path(results_folder)
-        if results_folder is not None
-        else Path(get_root_path()) / "data" / "results"
+    key_candidates = ("dataset", "model", "n_qubits", "n_layers", "seed", "p")
+    keys = [column for column in key_candidates if column in df.columns]
+    if df.empty or not keys:
+        return df.reset_index(drop=True)
+    return df.drop_duplicates(subset=keys, keep="last").reset_index(drop=True)
+
+
+def _load_or_create_merged_data(
+    merged_path: Path,
+    loader: Any,
+    *,
+    use_cache: bool,
+    refresh_cache: bool,
+) -> pd.DataFrame:
+    """Load saved merged data and source data, then combine and deduplicate.
+
+    The merged CSV is an additional input, not a replacement for source CSVs.
+    With ``refresh_cache=True``, the existing merged file is ignored and rebuilt
+    from source files. Dataset filtering and plotting transformations happen
+    only after this function returns.
+    """
+    frames: list[pd.DataFrame] = []
+
+    if use_cache and not refresh_cache and merged_path.is_file():
+        frames.append(pd.read_csv(merged_path))
+
+    source_df = loader()
+    if not source_df.empty:
+        frames.append(source_df)
+
+    if not frames:
+        return pd.DataFrame()
+
+    df = _deduplicate_results(pd.concat(frames, ignore_index=True, sort=False))
+    merged_path.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(merged_path, index=False)
+    return df
+
+
+def _read_result_directory(folder: Path, *, noise_p: float | None = None) -> list[pd.DataFrame]:
+    """Read result CSVs from one dataset folder using the project's layout.
+
+    Complete results are named ``results*.csv`` directly in the dataset folder.
+    Incremental results are CSV files inside its ``partial`` subdirectory.
+    """
+    if not folder.is_dir():
+        return []
+
+    result_files = sorted(
+        path for path in folder.iterdir()
+        if path.is_file() and path.name.startswith("results") and path.suffix == ".csv"
     )
-    previous_folder = root / "previous"
+    partial_folder = folder / "partial"
+    if partial_folder.is_dir():
+        result_files.extend(sorted(
+            path for path in partial_folder.iterdir()
+            if path.is_file() and path.suffix == ".csv"
+        ))
+
+    frames = []
+    for result_file in dict.fromkeys(result_files):
+        frame = pd.read_csv(result_file)
+        if noise_p is not None:
+            frame["p"] = noise_p
+        frames.append(frame)
+    return frames
+
+
+def _merge_noise_from_source(root: Path) -> pd.DataFrame:
+    """Read historical and current noise results from their actual locations."""
+    previous_file = root / "previous" / "all_noise_digits_08.csv"
+    frames = [format_previous_results(previous_file)]
     noise_folder = root / "NOISE_EXPERIMENT"
 
-    frames = [
-        format_previous_results(previous_folder / "all_noise_digits_08.csv")
-    ]
-
-    if noise_folder.exists():
-        for device in noise_folder.iterdir():
-            if not device.is_dir() or "depolarizing_1q_" not in device.name:
+    if noise_folder.is_dir():
+        for device_folder in sorted(noise_folder.iterdir()):
+            if not device_folder.is_dir() or "depolarizing_1q_" not in device_folder.name:
                 continue
 
-            p = float(device.name.split("depolarizing_1q_", 1)[1])
+            suffix = device_folder.name.split("depolarizing_1q_", 1)[1]
+            try:
+                noise_p = float(suffix)
+            except ValueError:
+                continue
 
-            for dataset in device.iterdir():
-                if not dataset.is_dir():
-                    continue
+            # Actual layout: NOISE_EXPERIMENT/<device>/<dataset>/<results or partial>.
+            for dataset_folder in sorted(device_folder.iterdir()):
+                if dataset_folder.is_dir():
+                    frames.extend(_read_result_directory(dataset_folder, noise_p=noise_p))
 
-                for result in dataset.iterdir():
-                    if result.is_file() and result.name.startswith("results") and result.suffix == ".csv":
-                        df = pd.read_csv(result)
-                        df["p"] = p
-                        frames.append(df)
-                    elif result.is_dir() and result.name == "partial":
-                        for partial_result in result.iterdir():
-                            if partial_result.is_file() and partial_result.suffix == ".csv":
-                                df = pd.read_csv(partial_result)
-                                df["p"] = p
-                                frames.append(df)
-
-    return pd.concat(frames, ignore_index=True)
+    non_empty_frames = [frame for frame in frames if not frame.empty]
+    return pd.concat(non_empty_frames, ignore_index=True, sort=False) if non_empty_frames else pd.DataFrame()
 
 
-def merge_layers(results_folder: str | Path | None = None) -> pd.DataFrame:
-    """Load historical and current layer-depth results into one dataframe."""
-    root = (
-        Path(results_folder)
-        if results_folder is not None
-        else Path(get_root_path()) / "data" / "results"
+def merge_noise(
+    results_folder: str | Path | None = None,
+    *,
+    use_cache: bool = True,
+    refresh_cache: bool = False,
+) -> pd.DataFrame:
+    """Load merged noise results, using a raw-data cache when available.
+
+    The cache is stored in ``merged/raw/noise.csv`` and is created before any
+    dataset filtering or plotting transformations. Set ``refresh_cache=True``
+    to rebuild it from the source experiment CSV files.
+    """
+    root = _resolve_root_path(results_folder)
+    merged_path = root / "merged" / "raw" / "noise.csv"
+    return _load_or_create_merged_data(
+        merged_path,
+        lambda: _merge_noise_from_source(root),
+        use_cache=use_cache,
+        refresh_cache=refresh_cache,
     )
-    previous_folder = root / "previous"
+
+
+def _merge_layers_from_source(root: Path) -> pd.DataFrame:
+    """Read historical and current layer-depth results from their actual locations."""
+    previous_file = root / "previous" / "all_layers_digits_08.csv"
+    frames = [format_previous_results(previous_file)]
     layer_folder = root / "LAYERS_EXPERIMENT" / "default"
 
-    frames = [
-        format_previous_results(previous_folder / "all_layers_digits_08.csv")
-    ]
+    if layer_folder.is_dir():
+        # Actual layout: LAYERS_EXPERIMENT/default/<dataset>/<results or partial>.
+        for dataset_folder in sorted(layer_folder.iterdir()):
+            if dataset_folder.is_dir():
+                frames.extend(_read_result_directory(dataset_folder))
 
-    if layer_folder.exists():
-        for dataset in layer_folder.iterdir():
-            if not dataset.is_dir():
-                continue
+    non_empty_frames = [frame for frame in frames if not frame.empty]
+    return pd.concat(non_empty_frames, ignore_index=True, sort=False) if non_empty_frames else pd.DataFrame()
 
-            for result in dataset.iterdir():
-                if result.is_file() and result.name.startswith("results") and result.suffix == ".csv":
-                    frames.append(pd.read_csv(result))
-                elif result.is_dir() and result.name == "partial":
-                    for partial_result in result.iterdir():
-                        if partial_result.is_file() and partial_result.suffix == ".csv":
-                            frames.append(pd.read_csv(partial_result))
 
-    return pd.concat(frames, ignore_index=True)
+def merge_layers(
+    results_folder: str | Path | None = None,
+    *,
+    use_cache: bool = True,
+    refresh_cache: bool = False,
+) -> pd.DataFrame:
+    """Load merged layer-depth results, using a raw-data cache when available.
+
+    The cache is stored in ``merged/raw/layers.csv`` and is created before any
+    dataset filtering or plotting transformations. Set ``refresh_cache=True``
+    to rebuild it from the source experiment CSV files.
+    """
+    root = _resolve_root_path(results_folder)
+    merged_path = root / "merged" / "raw" / "layers.csv"
+    return _load_or_create_merged_data(
+        merged_path,
+        lambda: _merge_layers_from_source(root),
+        use_cache=use_cache,
+        refresh_cache=refresh_cache,
+    )
 
 
 def aggregate(
@@ -391,8 +496,7 @@ def main(
         models=models,
         metric=metric,
         save_folder=(
-            save_folder
-            or Path(get_root_path()) / "data" / "results" / "figures"
+            save_folder or Path(get_root_path()) / "data" / "results" / "figures"
         ),
         dataset=dataset,
     )
@@ -403,25 +507,33 @@ def plot_all_results(
     save_folder: str | Path | None = None,
     results_folder: str | Path | None = None,
     layers_limit: int = 40,
+    use_cache: bool = True,
+    refresh_cache: bool = False,
 ) -> None:
-    """Merge all experiment results and generate figures for every dataset."""
-    noise_df = merge_noise(results_folder)
-    layers_df = merge_layers(results_folder)
+    """Load cached/raw merged results, apply plotting filters, and generate figures.
+
+    Raw merged data are cached by ``merge_noise`` and ``merge_layers`` before
+    the dataset and layer-limit filters below are applied.
+    """
+    noise_df = merge_noise(
+        results_folder,
+        use_cache=use_cache,
+        refresh_cache=refresh_cache,
+    )
+    layers_df = merge_layers(
+        results_folder,
+        use_cache=use_cache,
+        refresh_cache=refresh_cache,
+    )
+
+    # Apply plotting-specific filters only after the raw merged data are cached.
     layers_df = layers_df[layers_df["n_layers"] <= layers_limit].copy()
 
     # Filter by dataset
     noise_df = noise_df[noise_df["dataset"].isin(DATASET_LIST)]
     layers_df = layers_df[layers_df["dataset"].isin(DATASET_LIST)]
 
-    root = (
-        Path(results_folder)
-        if results_folder is not None
-        else Path(get_root_path()) / "data" / "results"
-    )
-    merged_folder = root / "merged"
-    merged_folder.mkdir(parents=True, exist_ok=True)
-    noise_df.to_csv(merged_folder / "noise.csv", index=False)
-    layers_df.to_csv(merged_folder / "layers.csv", index=False)
+    root = _resolve_root_path(results_folder)
 
     datasets = sorted(
         set(noise_df["dataset"].unique()) | set(layers_df["dataset"].unique())
